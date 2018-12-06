@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import  './App.css';
-import Person from './Person/Person';
-
+import Persons from '../components/Persons/Persons';
+//import ErrorBoundary from '../errorBoundary/errorBoundary';
 class App extends Component {
   state = {
     persons :[
@@ -57,35 +57,29 @@ class App extends Component {
     }
 
     let persons = null;
-
-    if(this.state.showPersons){
-      persons = (
-        <div>
-          {
-            this.state.persons.map((person,index) => {
-             return <Person click = {(event) => this.deletePersonHandler(event,index)} 
-             change = {(event) => this.nameChangedHandler(event,person.id)}
-              name = {person.name} age = {person.age}
-              key = {person.id}> </Person>              
-            })
-          }
-        </div>  
-      )
+if (this.state.showPersons) {
+  persons = (
+  <div> {
+     <Persons persons = {this.state.persons}
+     clicked =  { this.deletePersonHandler} 
+     changed = {this.nameChangedHandler} />
+  }
+  </div>  
+    )
       style.backgroundColor = 'red';
-    }
+      }
 
-    const classes = [];
-    
-    if(this.state.persons.length <= 2){
-      classes.push('red');
-    }
+      const classes = [];
 
-    if(this.state.persons.length <= 1){
-      classes.push('bold');
-    }
+      if (this.state.persons.length <= 2) {
+        classes.push('red');
+      }
 
+      if (this.state.persons.length <= 1) {
+        classes.push('bold');
+      }
     return (
-      <div className="App">
+     <div className="App">
      <h1>Hi i am a react app!</h1>
       <p className ={classes.join(' ')}>This is really working!</p>
       <button style = {style} onClick = {this.toggleNameHandler}>Toggle persons</button>
